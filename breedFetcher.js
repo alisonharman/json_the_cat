@@ -10,8 +10,13 @@ const fetchBreedDescription = function(breedName, callback) {
     } else {
       // data will be a cat object
       const data = JSON.parse(body)[0];
-      // just want description returned as string
-      description = data["description"];
+      if (data !== undefined) {
+        // just want description returned as string
+        description = data["description"];
+      } else {
+        description = null;
+      }
+
     }
     callback(error, description);
   });
