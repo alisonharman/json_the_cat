@@ -1,18 +1,21 @@
 const request = require('request');
 
-const fetchBreedDescription = function (breedName, callback) {
+const fetchBreedDescription = function(breedName, callback) {
   request('https://api.thecatapi.com/v1/breeds/search?q=' + breedName, (error, response, body) => {
 
+    let description;
     if (error !== null) {
       // request failed and error is an object (not null) and body is undefined
       body = null;
     } else {
-      body = JSON.parse(body)[0];
+      // data will be a cat object
+      const data = JSON.parse(body)[0];
+      // just want description returned as string
+      description = data["description"];
     }
-
-    callback(error, body);
+    callback(error, description);
   });
-}
+};
 
 module.exports = { fetchBreedDescription };
 
