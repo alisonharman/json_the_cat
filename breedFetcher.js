@@ -1,7 +1,26 @@
 const request = require('request');
 
+const fetchBreedDescription = function (breedName, callback) {
+  request('https://api.thecatapi.com/v1/breeds/search?q=' + breedName, (error, response, body) => {
+
+    if (error !== null) {
+      // request failed and error is an object (not null) and body is undefined
+      body = null;
+    } else {
+      body = JSON.parse(body)[0];
+    }
+
+    callback(error, body);
+  });
+}
+
+module.exports = { fetchBreedDescription };
+
+
+/*
 // take in command-line argument of the cat breed
 const catBreed = process.argv.slice(2, 3);
+
 
 request('https://api.thecatapi.com/v1/breeds/search?q=' + catBreed[0], (error, response, body) => {
 
@@ -25,3 +44,4 @@ request('https://api.thecatapi.com/v1/breeds/search?q=' + catBreed[0], (error, r
     console.log(data);
   }
 });
+*/
