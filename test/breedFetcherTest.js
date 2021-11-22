@@ -17,4 +17,19 @@ describe('fetchBreedDescription', () => {
       done();
     });
   });
+
+  it('returns a null string for a invalid breed, via callback', (done) => {
+    fetchBreedDescription('nonsense', (err, desc) => {
+      // we expect no error for this scenario (error only set if URL is wrong...)
+      assert.equal(err, null);
+
+      const expectedDesc = null;
+
+      // compare returned description
+      assert.equal(expectedDesc, desc);
+
+      done();
+    });
+  });
+
 });
